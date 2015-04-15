@@ -1,0 +1,20 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    docsplit (0.7.6)
+    httparty (0.13.3)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
+    json (1.8.2-java)
+    multi_xml (0.5.5)
+    tabula-extractor (0.7.6-java)
+      trollop (~> 2.0)
+    trollop (2.1.2)
+
+PLATFORMS
+  java
+
+DEPENDENCIES
+  docsplit
+  httparty
+  tabula-extractor
