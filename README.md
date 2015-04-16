@@ -9,7 +9,7 @@ Got a question about the data or how to get involved? [File an issue](https://gi
 
 ##Get Started
 ###Set the stage
-These scripts use the tabula-extractor Ruby gem, which only runs in the [JRuby](http://jruby.org/) version of the language. Before you can do anything, you'll have to use a Ruby version manager like [rbenv](https://github.com/sstephenson/rbenv) or [RVM](https://rvm.io/) to install Ruby and then the individual gems we use. If you are a seasoned Rubyist, you can skip to the next section. We'll also assume that you've used git before and have it installed on your command line. (These instructions have been tested on OS X. If you use a Windows machine, please adjust as necessary).
+These scripts use the tabula-extractor Ruby gem, which only runs in the [JRuby](http://jruby.org/) version of the language. Before you can do anything, you'll have to use a Ruby version manager like [rbenv](https://github.com/sstephenson/rbenv) or [RVM](https://rvm.io/) to install Ruby. You'll also need to have the [Bundler](http://bundler.io/) Ruby gem installed to set up the additional gems we use. If you are a seasoned Rubyist, you can skip to the next section. We'll also assume that you've used git before and have it installed on your command line. (These instructions have been tested on OS X. If you use a Windows machine, please adjust as necessary).
 
 ```
 git clone git@github.com:HackJersey/crime.git   #clone this repo to your local machine
