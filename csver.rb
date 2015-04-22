@@ -65,7 +65,13 @@ def peel(file_name, csvs_output)
 
         release_date = Date.parse date
         covers = Date.parse coverage
-        outfile = csvs_output + release_date.to_s + "-for-" + covers.to_s[0..-4] + "-" + id + ".csv"
+
+        year_pattern = /.*(201\d)/
+        if file_name.end_with?('stats.pdf')
+            outfile = csvs_output + release_date.to_s + "-for-" + id + "-" + year_pattern.match(file_name)[1] + "annual.csv"
+        else
+            outfile = csvs_output + release_date.to_s + "-for-" + covers.to_s[0..-4] + "-" + id +".csv"
+        end
 
         table_area = pdf_page.get_area(page_area).get_table.to_csv
         table_csv = CSV.parse(table_area)
