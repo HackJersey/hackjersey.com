@@ -76,12 +76,19 @@ def peel(file_name, csvs_output)
         table_area = pdf_page.get_area(page_area).get_table.to_csv
         table_csv = CSV.parse(table_area)
 
-        heds = ["crime", "month_last_yr", "month_this_yr", "pct_chg", "ytd_last", "ytd_this_yr", "ytd_pct_chg", "cleared", "pct_cleared", "juvie_cleared"]
+        heds = ["crime", "month_last_yr", "month_this_yr", "ytd_last", "ytd_this_yr", "cleared", "juvie_cleared"]
         CSV.open(outfile,"wb") do |csv|
             csv << heds
             table_csv.each do |row|
-                next if row[0].start_with?("Total")
+                next if row[0].strip.end_with?("Total:")
+                next if row[0].strip.end_with?("Index")
+                next if row[0].strip.end_with?("Crime")
                 if row[-1] != ""
+                    if row.length>10
+                        row = row.values_at(0,2,3,5,6,8,10)
+                    else
+                        row = row.values_at(0,1,2,4,5,7,9)
+                    end
                     csv << row
                 end
             end
