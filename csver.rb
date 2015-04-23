@@ -8,24 +8,35 @@ require 'tabula'
 require 'httparty'
 
 def scrape(file_name, csvs_output)
-    puts "Processing "+file_name
     local_dir = "data/pdfs/"
     grab(file_name, local_dir)
+    puts "Processing "+file_name
     FileUtils.mkdir_p(csvs_output)
     peel(file_name, csvs_output)
 end
 
 def grab(file_name, local_dir)
     if Dir.entries(local_dir).include?file_name
+        puts file_name + " found on local machine."
     else
-        retrieve(file_name, local_dir, remote_dir)
+        retrieve(file_name, local_dir)
     end
 end
 
-def retreive(file_name, local_dir, remote_dir)
-    remote_dir = "http://www.njsp.org/info/pdf/ucr/current/"
-	File.open(local_dir+file_name, 'wb') do |f|
-		f.write HTTParty.get(remote_dir+file_name).parsed_response
+def retrieve(file_name, local_dir)
+    remote_dir="http://www.njsp.org/info/pdf/ucr/current/"
+    puts remote_dir+file_name
+    remotes = HTTParty.get(remote_dir+file_name)
+    case remotes.code
+    when 404
+        abort(file_name + " not found on State Police website.")
+    when 500..600
+        abort("some other error happening with web request")
+    when 200 
+        File.open(local_dir+file_name, 'wb') do |f|
+            puts "downloaded " + file_name
+            f.write remotes.parsed_response
+        end
     end
 end
 
@@ -33,7 +44,7 @@ def peel(file_name, csvs_output)
     pdfs_dir = 'data/pdfs/'
     counter = 0
     page_area = [97.55,11.19,573.48,778.62]
-    extractor = Tabula::Extraction::ObjectExtractor.new(pdfs_dir+file_name, :all )
+    extractor = Tabula::Extraction::ObjectExtractor.new(pdfs_dir+file_name, :all)
     extractor.extract.each_with_index do |pdf_page, page_index|
         first_csv = pdf_page.get_table.to_csv
         my_csv = CSV.parse(first_csv)
