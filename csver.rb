@@ -19,7 +19,7 @@ class Optparser
 
 
         opt_parser = OptionParser.new do |opts|
-            opts.banner = "Usage: example.rb [options]"
+            opts.banner = "Usage: ruby csver.rb [options] [filename(s) to scrape]"
             
             #a single string of output directory
             opts.on("-o", "--output [DIR]", String, "Output directory") do |o|  

@@ -58,6 +58,17 @@ The CSVs have the following columns.
 * "pct_cleared" - the percent of crimes cleared.
 * "juvie_cleared" - the count of these crimes that were commited by juveniles and cleared.
 
+##Additional options
+We've added support for three optional command line arguments, like so.
+
+```
+Usage: ruby csver.rb [options]
+    -o, --output [DIR]               Output directory
+    -i, --ids [IDs]                  Provide a pipe-separated (|) list of unique agency IDs
+    -l, --local                      Only parse local copy, if it exists.
+```
+If you use the ID flag, you must give it the agency's unique ID, from the ```lookup-agency.csv```. If you want reports for more than one agency, you must separate the IDs with a pipe (|) and no spaces, like ```NJ101010|NJ202020```. If you only want the statewide overview, you can use the id ```state```.
+
 ##What next?
 Right now, these script provide an easier format for dealing with tabular data than the massive, monthly State Police PDFs. In short order, we hope to start ingesting these into a database and provide programmatic access to these numbers, along with historic data. So stay tuned.
 
