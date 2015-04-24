@@ -62,7 +62,7 @@ The CSVs have the following columns.
 We've added support for three optional command line arguments, like so.
 
 ```
-Usage: ruby csver.rb [options]
+Usage: ruby csver.rb [options] [filename(s) to scrape]
     -o, --output [DIR]               Output directory
     -i, --ids [IDs]                  Provide a pipe-separated (|) list of unique agency IDs
     -l, --local                      Only parse local copy, if it exists.
