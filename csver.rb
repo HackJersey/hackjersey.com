@@ -1,26 +1,93 @@
 #!/usr/bin/env jruby
 # encoding: utf-8
 
-require 'rubygems'
+require 'optparse'
+require 'ostruct'
 require 'date'
 require 'fileutils'
+
+require 'rubygems'
 require 'tabula'
 require 'httparty'
 
-def scrape(file_name, csvs_output)
-    local_dir = "data/pdfs/"
-    grab(file_name, local_dir)
-    puts "Processing "+file_name
-    FileUtils.mkdir_p(csvs_output)
-    peel(file_name, csvs_output)
+class Optparser
+    def self.parse(args)
+        options = OpenStruct.new
+        options.output = 'data/csvs/'
+        options.local = false
+        options.ids = []
+
+
+        opt_parser = OptionParser.new do |opts|
+            opts.banner = "Usage: example.rb [options]"
+            
+            #a single string of output directory
+            opts.on("-o", "--output [DIR]", String, "Output directory") do |o|  
+                if o
+                    options.output = o
+                else
+                    options.output=options.output
+                end
+            end
+
+            #Array of IDs to parse
+            opts.on("-i", "--ids [IDs]", "Provide a pipe-separated (|) list of unique agency IDs") do |i|
+                if i
+                    i.split('|').each do |it|
+                        options.ids << it
+                    end
+                else
+                    options.ids = nil
+                end             
+            end
+
+            #Boolean to use local copy or fetch remote copy
+            opts.on("-l", "--local", "Only parse local copy, if it exists.") do |l|
+                options.local = l
+            end
+
+        end
+
+        begin
+            opt_parser.parse! 
+            options
+        rescue
+            OptionParser::MissingArgument
+            puts $!.to_s + " must add an argument with the flag"
+            puts opt_parser
+            exit
+        end
+    end
 end
 
-def grab(file_name, local_dir)
-    if Dir.entries(local_dir).include?file_name
-        puts file_name + " found on local machine."
+def output_dir(output)
+    if output[-1]=='/'
+        return output
     else
-        retrieve(file_name, local_dir)
+        return output= output+"/"
     end
+end
+
+def scrape(file_name, csvs_output, local=false, id_list=false)
+    local_dir = "data/pdfs/"
+    csvs_output = output_dir(csvs_output)
+    if local
+        if Dir.entries(local_dir).include?file_name
+            puts file_name + " found on local machine."
+            puts "Processing "+file_name
+        else
+            abort("File not found. Try running the script without the local flag to retrieve from the web.")
+        end
+    else
+        if Dir.entries(local_dir).include?file_name
+            puts file_name + " found on local machine."
+            puts "Processing "+file_name
+        else
+            retrieve(file_name, local_dir)
+        end
+    end
+    FileUtils.mkdir_p(csvs_output)
+    peel(file_name, csvs_output, id_list)
 end
 
 def retrieve(file_name, local_dir)
@@ -40,7 +107,7 @@ def retrieve(file_name, local_dir)
     end
 end
 
-def peel(file_name, csvs_output)
+def peel(file_name, csvs_output, id_list=false)
     pdfs_dir = 'data/pdfs/'
     counter = 0
     page_area = [97.55,11.19,573.48,778.62]
@@ -59,6 +126,10 @@ def peel(file_name, csvs_output)
         id = pattern.match(first_csv)[1].strip
         if id.downcase == "new jersey"
             id = "state"
+        end
+
+        if id_list.length>0
+            next unless id_list.include?(id)
         end
 
         release_date = Date.parse date
@@ -101,12 +172,13 @@ def peel(file_name, csvs_output)
     puts counter.to_s + " pages from " + file_name + " converted to CSVs."
 end
 
-csvs_output="data/csvs/"
-file_name = "20150327_crimetrend.pdf"
+
+options = Optparser.parse(ARGV)
+
 if ARGV.length > 0
     ARGV.each do |argv|
-        scrape(argv, csvs_output)
+        scrape(argv, options.output, local=options.local, id=options.ids)
     end
 else
-    scrape(file_name, csvs_output)
+    abort("You must list at least one file to scrape.")
 end
