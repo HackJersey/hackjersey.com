@@ -23,11 +23,11 @@ bundle install   #install the gems that we use and their dependencies
 ###Run the script
 Now that you've got the right version of Ruby and the gems installed
 
-Make certain you're in the project directory with the ```csver.rb``` file.
-This file takes any number of optional command line arguments for names of the crime report pdfs you want to scrape to CSVs. By default, this is set to ```20150327_crimetrend.pdf```, which was the report for January, 2015 crime stats released in March. To scrape a different report, just list its name after typing ```ruby csver.rb```. So, if I wanted to scrape ```20150327_crimetrend.pdf``` and ```20150327_ucr_2014stats.pdf```, I'd have to type: 
+Make certain you're in the project directory with the ```crimecsv.rb``` file.
+This file takes any number of optional command line arguments for names of the crime report pdfs you want to scrape to CSVs. By default, this is set to ```20150327_crimetrend.pdf```, which was the report for January, 2015 crime stats released in March. To scrape a different report, just list its name after typing ```./crimecsv.rb```. So, if I wanted to scrape ```20150327_crimetrend.pdf``` and ```20150327_ucr_2014stats.pdf```, I'd have to type: 
 
 ```
-ruby csver.rb 20150327_crimetrend.pdf 20150327_ucr_2014stats.pdf
+./crimecsv.rb 20150327_crimetrend.pdf 20150327_ucr_2014stats.pdf
 ```
 
 Then sit back and wait for the magic to happen.
@@ -62,7 +62,7 @@ The CSVs have the following columns.
 We've added support for three optional command line arguments, like so.
 
 ```
-Usage: ruby csver.rb [options] [filename(s) to scrape]
+Usage: ./crimecsv.rb [options] [filename(s) to scrape]
     -o, --output [DIR]               Output directory
     -i, --ids [IDs]                  Provide a pipe-separated (|) list of unique agency IDs
     -l, --local                      Only parse local copy, if it exists.
