@@ -31,9 +31,9 @@ class Optparser
             end
 
             #Array of IDs to parse
-            opts.on("-i", "--ids [IDs]", "Provide a pipe-separated (|) list of unique agency IDs") do |i|
+            opts.on("-i", "--ids [IDs]", "Provide a comma-separated (unspaced) list of unique agency IDs") do |i|
                 if i
-                    i.split('|').each do |it|
+                    i.split(',').each do |it|
                         options.ids << it
                     end
                 else
@@ -74,7 +74,7 @@ class UCRPDFParser
         if output[-1]=='/'
             return output
         else
-            return output= output+"/"
+            output = output+"/"
         end
     end
 
@@ -117,15 +117,43 @@ class UCRPDFParser
         end
     end
 
-    def filenamer(id, covers, release_date)
+    def filenamer(id, covers, release_date, csvs_output)
         year_pattern = /.*(201\d)/
         if @file_name.end_with?('stats.pdf')
-            outfile = @csvs_output + release_date.to_s + "-for-" + id + "-" + year_pattern.match(file_name)[1] + "annual.csv"
+            outfile = csvs_output + release_date.to_s + "-for-" + id + "-" + year_pattern.match(@file_name)[1] + "annual.csv"
         else
-            outfile = @csvs_output + release_date.to_s + "-for-" + covers.to_s[0..-4] + "-" + id + ".csv"
+            outfile = csvs_output + release_date.to_s + "-for-" + covers.to_s[0..-4] + "-" + id + ".csv"
         end
     end
 
+    def dateify(csv)
+        if csv[0][-1]!= ""
+            date = csv[0][-1]
+        else
+            date = csv[1][-1]
+        end
+        return date
+    end
+
+    def write_csv(table_area, outfile)
+        table_csv = CSV.parse(table_area)
+
+        heds = ["crime", "month_last_yr", "month_this_yr", "ytd_last", "ytd_this_yr", "cleared", "juvie_cleared"]
+        CSV.open(outfile,"wb") do |csv|
+            csv << heds
+            table_csv.each do |row|
+                next if row[0].strip.end_with?("Total:","Index","Crime")
+                if row[-1] != ""
+                    if row.length>10
+                        row = row.values_at(0,2,3,5,6,8,10)
+                    else
+                        row = row.values_at(0,1,2,4,5,7,9)
+                    end
+                    csv << row
+                end
+            end
+        end
+    end
 
     def peel(file_name, csvs_output, id_list=false)
         pdfs_dir = 'data/pdfs/'
@@ -135,50 +163,22 @@ class UCRPDFParser
         extractor.extract.each_with_index do |pdf_page, page_index|
             first_csv = pdf_page.get_table.to_csv
             my_csv = CSV.parse(first_csv)
-            #TODO make this a function
-            if my_csv[0][-1]!= ""
-                date = my_csv[0][-1]
-            else
-                date = my_csv[1][-1]
-            end
+            date = dateify(my_csv)
             coverage = my_csv[4][-1].split('-')[1]
             pattern = /^(N.+)\s+Total/
             id = pattern.match(first_csv)[1].strip
             if id.downcase == "new jersey"
                 id = "state"
             end
-
             if @id_list.length>0
                 next unless @id_list.include?(id)
             end
-
             release_date = Date.parse date
             covers = Date.parse coverage
-
-            outfile = filenamer(id, covers, release_date)
+            outfile = filenamer(id, covers, release_date, csvs_output)
 
             table_area = pdf_page.get_area(page_area).get_table.to_csv
-            #TODO Make this a function
-            table_csv = CSV.parse(table_area)
-
-            heds = ["crime", "month_last_yr", "month_this_yr", "ytd_last", "ytd_this_yr", "cleared", "juvie_cleared"]
-            CSV.open(outfile,"wb") do |csv|
-                csv << heds
-                table_csv.each do |row|
-                    #TODO make this a function
-                    next if row[0].strip.end_with?("Total:")
-                    next if row[0].strip.end_with?("Index")
-                    next if row[0].strip.end_with?("Crime")
-                    if row[-1] != ""
-                        if row.length>10
-                            row = row.values_at(0,2,3,5,6,8,10)
-                        else
-                            row = row.values_at(0,1,2,4,5,7,9)
-                        end
-                        csv << row
-                    end
-                end
-            end
+            write_csv(table_area, outfile)
             counter += 1
         end
         extractor.close!    
