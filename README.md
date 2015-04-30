@@ -17,6 +17,7 @@ cd crime
 rbenv install jruby-1.7.15   #install this or a newer version of JRuby
 rbenv rehash
 rbenv local jruby-1.7.15   #set JRuby as your current, local version of Ruby for this project
+gem install bundler
 bundle install   #install the gems that we use and their dependencies
 ```
 
