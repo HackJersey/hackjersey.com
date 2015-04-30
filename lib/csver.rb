@@ -60,8 +60,13 @@ class Optparser
     end
 end
 
+def id_namer(csv)
+    pattern = /^(N.+)\s+Total/
+    id = pattern.match(csv)[1].strip
+    return id            
+end
 
-class UCRPDFParser
+class UCRPDFParser    
     def initialize(file_name, csvs_output, local=false, id=false)
         @file_name = file_name
         @csvs_output = csvs_output
@@ -165,8 +170,7 @@ class UCRPDFParser
             my_csv = CSV.parse(first_csv)
             date = dateify(my_csv)
             coverage = my_csv[4][-1].split('-')[1]
-            pattern = /^(N.+)\s+Total/
-            id = pattern.match(first_csv)[1].strip
+            id = id_namer(first_csv)
             if id.downcase == "new jersey"
                 id = "state"
             end
