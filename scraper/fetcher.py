@@ -77,7 +77,7 @@ def main():
     '''
     Collect the command line arguments and run the scrapers.
     '''
-    parser = argparse.ArgumentParser(description="Scrape and download crime data from NJSP")
+    parser = argparse.ArgumentParser(description="Scrape and download crime data from NJSP at http://www.njsp.org/ucr/current-crime-data1.shtml?agree=0")
     parser.add_argument('-u', dest='url', help='Pass in a different URL to scrape from the standard pattern.')
     parser.add_argument('-d', dest='date', help='Perhaps you want a previous date?')
 
@@ -103,3 +103,5 @@ if __name__ == '__main__':
 
 #TODO upload the results to AWS and give me back the published URLS
 #TODO finally, append those new URLs to the csv
+
+#then make a database for all of those with either django or flask

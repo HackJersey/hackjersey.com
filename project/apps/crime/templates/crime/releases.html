@@ -1,0 +1,13 @@
+<html>
+<head></head>
+<body>
+
+hi
+
+<ul>
+{% for release in releases %}
+    <li><a href="{{ release.hj_url }}">{{ release.file_name }} urf</a></li>
+{% endfor %}
+</ul>
+</body>
+</html>
