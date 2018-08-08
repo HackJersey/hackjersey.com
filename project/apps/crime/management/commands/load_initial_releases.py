@@ -1,9 +1,6 @@
-import io
-import urllib
-from datetime import date
 import os
+
 import logging
-import requests
 from django.core.management.base import BaseCommand, CommandError
 from project.apps.crime.models import Agency, Release
 
@@ -16,7 +13,7 @@ class Command(BaseCommand):
 
     def open_releases_file(self):
         BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        file_location = BASE_DIR+ "../../../../../scraper/data/pdfs/crime_reports.csv"
+        file_location = BASE_DIR+ "/../../../../../scraper/data/pdfs/crime_reports.csv"
         with open(file_location, 'rU') as f:
             row_list = f.readlines()
         return row_list
@@ -27,13 +24,16 @@ class Command(BaseCommand):
         for row in row_list:
             p = Release()
             p.data_source = Agency.objects.get(ori7 = "NJNSP00")
-            length = p.check_pdf_length(row.strip())
+            #first make the request
+            file_content, url = p.request_release_url(row.strip())
+            length = p.check_pdf_length(file_content, url)
+            #length = 500
             if not length:
                 print("{0} is missing from s3".format(row))
                 continue
             (file_name, file_type, hj_url, length,
                 date_released, year_of_data, 
-                time_period_covered) = p.release_name_parser(row.strip(), length)
+                frequency_type) = p.release_name_parser(row.strip(), length)
             p.save()
             counter+=1
         return counter

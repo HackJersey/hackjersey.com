@@ -138,13 +138,13 @@ class ReleaseResource(ModelResource):
             file_type = choices[file_type]
         return file_type
 
-    def dehydrate_time_period_covered(self, bundle):
+    def dehydrate_frequency_type(self, bundle):
         for f in self._meta.object_class._meta.fields:
-            if f.name == "time_period_covered":
+            if f.name == "frequency_type":
                 choices = dict(f.choices)
-        for time_period_covered in bundle.obj.time_period_covered:
-            time_period_covered = choices[time_period_covered]
-        return time_period_covered
+        for frequency_type in bundle.obj.frequency_type:
+            frequency_type = choices[frequency_type]
+        return frequency_type
 
 
 #TODO add this cloudfront url

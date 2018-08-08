@@ -1,6 +1,7 @@
 # coding: utf-8
 from datetime import datetime, date
 import io
+import re
 from urllib.parse import urlparse
 
 from django.db import models
@@ -134,7 +135,7 @@ class Release(models.Model):
     date_released = models.DateField(blank=True, null=True, verbose_name = "Date of data release")
     date_collected = models.DateField(blank=True, null=True, verbose_name="Date downloaded")
     year_of_data = models.SmallIntegerField(blank=True, null=True, help_text="year the data covers")
-    time_period_covered = models.CharField(choices = PERIOD_CHOICES, max_length=10, blank=False)
+    frequency_type = models.CharField(choices = PERIOD_CHOICES, max_length=10, blank=False)
     data_source = models.ForeignKey(Agency, null=True, blank=True, related_name='source_agency', help_text="Source Agency", on_delete=models.SET_NULL)
 
     class Meta:
@@ -170,6 +171,19 @@ class Release(models.Model):
         return length
 
     def release_name_parser(self, url, length=None):
+        annuals = {'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20150605_crimetrend.pdf':'2014',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20150612_crimetrend.pdf':'2014',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20151015_crimetrend.pdf':'2014',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20160129_crimetrend.pdf':'2015',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20170106_crimetrend.pdf':'2016',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20170113_crimetrend.pdf':'2016',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20170120_crimetrend.pdf':'2016',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20170127_crimetrend.pdf':'2016',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20170203_crimetrend.pdf':'2016',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20180116_crimetrend.pdf':'2017',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20180123_crimetrend.pdf':'2017',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20180129_crimetrend.pdf':'2017',
+        'https://s3.amazonaws.com/njsp-crime-reports/pdfs/20180202_crimetrend.pdf':'2017'}
         url = url.strip()
         file_type = url.split('.')[-1]
         if file_type.lower() == "pdf":
@@ -183,28 +197,33 @@ class Release(models.Model):
         else:
             length = self.check_pdf_length(url)
         hj_url = urlparse(url).path
-        file_name = hj_url.split('/')[-1]
+        file_name = hj_url.split('/')[-1].strip()
         date_released = date(int(file_name[:4]),
                             int(file_name[4:6]), 
                             int(file_name[6:8]))
         if "qtr" in file_name:
-            time_period_covered = "2"
+            frequency_type = "2"
             year_of_data = int(file_name.split('.')[0][-4:])
         elif "ucr" in file_name:
-            time_period_covered = "3"
+            frequency_type = "3"
             year_of_data = int(file_name.split('_')[-1][:4])
         elif '_crimetrend' in file_name:
-
-            #TODOs are any "crimetrends" for 2016, or 2017 not have the year in the filename?
-            #check all of these, including crimetrend_2018
-            #to see which are "annuals"
-            if file_name.strip().endswith('crimetrend_2017.pdf') or file_name.strip().endswith('_2016_crimetrend.pdf'):
-                time_period_covered = "3"
+            if file_name in annuals.keys():
+                frequency_type = "3"
+                year_of_data = annual_keys[file_name]
             else:
-                time_period_covered = "1"
+                #any file that says _2016_crimetrend.pdf or 
+                #crimetrend_2017.pdf is an annual.
+                #beware, many of the monthlies in 2018 end with
+                #crimetrend_2018.
+                regex = re.compile(r'_2016|7')
+                if regex.search(file_name):
+                    frequency_type = "3"
+                else:
+                    frequency_type = "1"
             regex = re.compile(r'_(\d{4})')
             try:
-                year_of_data = re.match(file_name).groups()[0]
+                year_of_data = regex.search(file_name).groups()[0]
             except:
                 year_of_data = file_name[:4]
         self.file_name = file_name
@@ -212,9 +231,9 @@ class Release(models.Model):
         self.hj_url = hj_url
         self.date_released = date_released
         self.year_of_data = year_of_data
-        self.time_period_covered = time_period_covered
+        self.frequency_type = frequency_type
         return (file_name, file_type, hj_url, length,
-            date_released, year_of_data, time_period_covered)
+            date_released, year_of_data, frequency_type)
 
     #def fetcher(self)
         #TODO

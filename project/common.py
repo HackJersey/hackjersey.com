@@ -171,25 +171,18 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 #LOGIN_REDIRECT_URL = "/admin/executions/case"
 LOGIN_URL = '/admin/login'
 
-#TODO set up email
 
+#email setup
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
-SENDGIRD_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 SERVER_EMAIL = 'hello+crimeerrors@tommeagher.com'
-SENDGRID_SENDER = 'hello+crime@tommeagher.com'
-DEFAULT_FROM_EMAIL = SENDGRID_SENDER
+DEFAULT_FROM_EMAIL = 'Hack Jersey Crime <hello+crime@tommeagher.com>'
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'sendgrid_username'
-EMAIL_HOST_PASSWORD = 'sendgrid_password'
+EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-
-'''
-EMAIL_HOST = os.environ.get('POSTMARK_SMTP_SERVER')
-EMAIL_HOST_PASSWORD = os.environ.get('POSTMARK_API_KEY')
-EMAIL_HOST_USER = os.environ.get('POSTMARK_API_KEY')
-'''
 
 #TODO set up slack
 '''

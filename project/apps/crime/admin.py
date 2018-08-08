@@ -133,9 +133,9 @@ admin_site.register(City, CityAdmin)
 
 class ReleaseAdmin(admin.ModelAdmin):
     form = forms.ModelForm
-    list_display=('file_name', 'time_period_covered', 'file_type', 'date_released')
+    list_display=('file_name', 'frequency_type', 'file_type', 'date_released')
     ordering=('date_released', 'file_name',)
-    search_fields = ['time_period_covered', 'year_of_data']
+    search_fields = ['frequency_type', 'year_of_data']
 
 admin_site.register(Release, ReleaseAdmin)
 

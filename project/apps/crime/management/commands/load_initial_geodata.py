@@ -2,6 +2,7 @@ import os
 import logging
 import requests
 from django.core.management.base import BaseCommand, CommandError
+from django.contrib.sites.models import Site
 from project.apps.crime.models import County, State, City, Agency
 
 logger = logging.getLogger(__name__)
@@ -179,6 +180,13 @@ class Command(BaseCommand):
             p.save()
         return
 
+    def update_site(self):
+        p = Site.objects.first()
+        p.domain = "crime.hackjersey.com"
+        p.name = "crime.hackjersey.com"
+        p.save()
+        return
+
     def handle(self, *args, **options):
         """
         load all the preliminary geographical data
@@ -199,3 +207,6 @@ class Command(BaseCommand):
         logger.debug("Loaded {0} municipal records".format(counter))
 
         self.load_njsp()
+
+        logger.debug("updating site domain and name")
+        self.update_site()
