@@ -102,6 +102,3 @@ if __name__ == '__main__':
 
 
 #TODO upload the results to AWS and give me back the published URLS
-#TODO finally, append those new URLs to the csv
-
-#then make a database for all of those with either django or flask

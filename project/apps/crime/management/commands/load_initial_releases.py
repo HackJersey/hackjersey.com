@@ -27,7 +27,6 @@ class Command(BaseCommand):
             #first make the request
             file_content, url = p.request_release_url(row.strip())
             length = p.check_pdf_length(file_content, url)
-            #length = 500
             if not length:
                 print("{0} is missing from s3".format(row))
                 continue

@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.files.storage import default_storage
 from django.utils import timezone
 from django.utils.text import slugify
 from django.contrib.postgres.fields import JSONField
@@ -195,7 +196,8 @@ class Release(models.Model):
         if length:
             self.length = length
         else:
-            length = self.check_pdf_length(url)
+            release_file, url = self.request_release_url(url)
+            self.length = self.check_pdf_length(release_file, url)
         hj_url = urlparse(url).path
         file_name = hj_url.split('/')[-1].strip()
         date_released = date(int(file_name[:4]),
@@ -235,11 +237,16 @@ class Release(models.Model):
         return (file_name, file_type, hj_url, length,
             date_released, year_of_data, frequency_type)
 
-    #def fetcher(self)
-        #TODO
-        #return
-        #add date collected in fetcher
-
+    def upload_to_s3(self, raw_data, file_name, bucket_folder = 'pdfs/'):
+        if not default_storage.exists(file_name):
+            upload_file = default_storage.open("{0}{1}".format(bucket_folder, file_name), 'w')
+            upload_file.write(raw_data)
+            upload_file.close()
+            self.hj_url = default_storage.url("{0}{1}".format(bucket_folder, file_name))
+            self.date_collected = date.today()
+        else:
+            print('{0} is already on s3'.format(file_name))
+        return
 
 class TaskHistory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Task name", help_text="Select a task to record.")

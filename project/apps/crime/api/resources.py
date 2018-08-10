@@ -3,6 +3,7 @@ import json
 import io
 
 from django.urls import re_path
+from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 
 from tastypie.resources import ModelResource, csrf_exempt
@@ -118,7 +119,7 @@ class ReleaseResource(ModelResource):
         return wrapper
 
     def alter_list_data_to_serialize(self, request, data):
-        data['meta']['documentation'] = "string" #TODO
+        data['meta']['documentation'] = "/api/documentation/"
         return data
 
     def build_schema(self):
@@ -146,12 +147,10 @@ class ReleaseResource(ModelResource):
             frequency_type = choices[frequency_type]
         return frequency_type
 
-
-#TODO add this cloudfront url
     def dehydrate_hj_url(self, bundle):
         hj_url = bundle.obj.hj_url
         if "http" not in hj_url:
-            hj_url = "{0}{1}".format('string', hj_url)
+            hj_url = "https://{0}/{1}".format(settings.AWS_S3_CUSTOM_DOMAIN, hj_url)
         else:
             pass
         return hj_url

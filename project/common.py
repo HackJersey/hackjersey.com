@@ -19,9 +19,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_CUSTOM_DOMAIN = 'dycbt2qke8skt.cloudfront.net'
+
+AWS_ACCESS_KEY_ID = os.environ.get('CRIME_AWS_ACCESS_KEY')
+AWS_SECRET_ACCESS_KEY = os.environ.get('CRIME_AWS_SECRET_KEY')
+
+#Your Amazon Web Services storage bucket name, as a string.
+AWS_STORAGE_BUCKET_NAME = "njsp-crime-reports"
+
+AWS_S3_FILE_OVERWRITE = False
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
@@ -31,9 +42,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+STATIC_HOST = os.environ.get('CRIME_DJANGO_STATIC_HOST', '')
+STATIC_URL = STATIC_HOST + '/static/'
 
 ADMINS = (
-    ('Tom Meagher', 'hello+crimeerrors@tommeagher.com'),
+    ('Tom Meagher', 'hello+crimeerrors@hackjersey.com'),
 )
 
 # Quick-start development settings - unsuitable for production
@@ -44,7 +57,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'bootstrap_admin', # always before django.contrib.admin
+    #'bootstrap_admin', # always before django.contrib.admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,6 +89,7 @@ API_LIMIT_PER_PAGE = 50
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -176,8 +190,8 @@ LOGIN_URL = '/admin/login'
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
-SERVER_EMAIL = 'hello+crimeerrors@tommeagher.com'
-DEFAULT_FROM_EMAIL = 'Hack Jersey Crime <hello+crime@tommeagher.com>'
+SERVER_EMAIL = 'hello+crimeerrors@hackjersey.com'
+DEFAULT_FROM_EMAIL = 'Hack Jersey Crime <hello+crime@hackjersey.com>'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
 EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
