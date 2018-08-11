@@ -43,7 +43,7 @@ STATICFILES_DIRS = (
 )
 
 STATIC_HOST = os.environ.get('CRIME_DJANGO_STATIC_HOST', '')
-STATIC_URL = STATIC_HOST + '/static/'
+#STATIC_URL = STATIC_HOST + '/static/'
 
 ADMINS = (
     ('Tom Meagher', 'hello+crimeerrors@hackjersey.com'),
@@ -57,7 +57,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'bootstrap_admin', # always before django.contrib.admin
+    'bootstrap_admin', # always before django.contrib.admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
