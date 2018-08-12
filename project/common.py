@@ -105,6 +105,8 @@ MIDDLEWARE_CLASSES = (
 
 )
 
+APPEND_SLASH = False
+
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
@@ -290,4 +292,5 @@ IGNORABLE_404_URLS = [
     re.compile(r'^/feed/'),
     re.compile(r'^/public-data/'),
     re.compile(r'^/rules/'),
+    re.compile(r'wordpress'),
 ]
