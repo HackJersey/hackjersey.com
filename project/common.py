@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import re
 import dj_database_url
 import django
 
@@ -57,7 +58,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'bootstrap_admin', # always before django.contrib.admin
+    #'bootstrap_admin', # always before django.contrib.admin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -190,7 +191,7 @@ LOGIN_URL = '/admin/login'
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
 SENDGRID_SANDBOX_MODE_IN_DEBUG = False
-SERVER_EMAIL = 'hello+crimeerrors@hackjersey.com'
+SERVER_EMAIL = 'Hack Jersey errors <hello+crimeerrors@hackjersey.com>'
 DEFAULT_FROM_EMAIL = 'Hack Jersey Crime <hello+crime@hackjersey.com>'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = os.environ.get('SENDGRID_USERNAME')
@@ -278,3 +279,15 @@ LOGGING = {
     }
 }
 
+IGNORABLE_404_URLS = [
+    re.compile(r'^/apple-touch-icon.*\.png$'),
+    re.compile(r'^/favicon\.ico$'),
+    re.compile(r'\.(php|cgi)$'),
+    re.compile(r'^/phpmyadmin/'),
+    re.compile(r'^/blog/'),
+    re.compile(r'^/wp-'),
+    re.compile(r'^/event/'),
+    re.compile(r'^/feed/'),
+    re.compile(r'^/public-data/'),
+    re.compile(r'^/rules/'),
+]
