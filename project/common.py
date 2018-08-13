@@ -89,6 +89,7 @@ SITE_ID = 1
 API_LIMIT_PER_PAGE = 50
 
 MIDDLEWARE = [
+    #'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -97,15 +98,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
 
 MIDDLEWARE_CLASSES = (
 
 )
-
-APPEND_SLASH = False
 
 ROOT_URLCONF = 'project.urls'
 
@@ -192,7 +190,7 @@ LOGIN_URL = '/admin/login'
 #email setup
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
 SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
-SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_SANDBOX_MODE_IN_DEBUG = True
 SERVER_EMAIL = 'Hack Jersey errors <hello+crimeerrors@hackjersey.com>'
 DEFAULT_FROM_EMAIL = 'Hack Jersey Crime <hello+crime@hackjersey.com>'
 EMAIL_HOST = 'smtp.sendgrid.net'
@@ -273,11 +271,11 @@ LOGGING = {
             'propagate': True,
         },
 
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'WARNING',
-            'propagate': True,
-        }
+#        'django.request': {
+#            'handlers': ['mail_admins'],
+#            'level': 'WARNING',
+#            'propagate': True,
+#        }
     }
 }
 
@@ -288,7 +286,7 @@ IGNORABLE_404_URLS = [
     re.compile(r'^/phpmyadmin/'),
     re.compile(r'^/blog/'),
     re.compile(r'^/wp-'),
-    re.compile(r'^/event/'),
+    re.compile(r'^/events*/'),
     re.compile(r'^/feed/'),
     re.compile(r'^/public-data/'),
     re.compile(r'^/rules/'),

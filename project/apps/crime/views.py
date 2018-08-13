@@ -10,4 +10,3 @@ def index(request):
     data_releases = Release.objects.all()
     return render(request, 'crime/releases.html', {'releases': data_releases,
                                                 'base_url':settings.AWS_S3_CUSTOM_DOMAIN})
-

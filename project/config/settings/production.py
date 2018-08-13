@@ -1,5 +1,7 @@
 from project.common import *
 
+
+DEBUG = os.environ.get('DJANGO_DEBUG')
 #TODO set this all up
 
 '''
@@ -18,3 +20,10 @@ SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+
+LOGGING['django.request'] = {
+            'handlers': ['mail_admins'],
+            'level': 'WARNING',
+            'propagate': True,
+        }

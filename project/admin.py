@@ -11,7 +11,7 @@ from django import forms
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 
 # Register your models here.
-from .models import *
+from project.apps.crime.models import *
 
 from tastypie.admin import ApiKeyInline
 
@@ -60,7 +60,7 @@ admin_site = MyAdminSite(name='crime')
 class UserModelAdmin(UserAdmin):
     inlines = UserAdmin.inlines + [ApiKeyInline]
 
-admin.site.unregister(User)
+#admin.site.unregister(User)
 admin_site.register(User,UserModelAdmin)
 admin_site.register(Group, GroupAdmin)
 
