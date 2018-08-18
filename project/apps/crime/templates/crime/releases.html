@@ -6,7 +6,7 @@
 <ul>
 {% if releases %}
 {% for release in releases %}
-    <li><a href="https://{{ base_url}}/{{ release.hj_url }}">{{ release.get_frequency_type_display | title }} update{% if release.frequency_type == "2" %} for {{ release.quarter | ordinal }} quarter, {{ release.year_of_data }}{% elif release.frequency_type == "3" %} for {{ release.year_of_data }}{% else %}{% endif %}, released on {{ release.date_released }}</a></li>
+    <li><a href="https://{{ base_url}}/{{ release.hj_url }}">{{ release.get_frequency_type_display | title }} update{% if release.agency %} for {{ release.agency }}{% endif %}{% if release.frequency_type == "2" %} for {{ release.quarter | ordinal }} quarter, {{ release.year_of_data }}{% elif release.frequency_type == "3" %} for {{ release.year_of_data }}{% else %}{% endif %}, released on {{ release.date_released }}</a></li>
 {% endfor %}
 </ul>
 <div class="pagination">

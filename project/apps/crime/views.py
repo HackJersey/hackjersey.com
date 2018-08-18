@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.conf import settings
 import datetime
 
-from project.apps.crime.models import Release
+from project.apps.crime.models import Release, CrimeReport
 
 def index(request):
     now = datetime.datetime.now()
@@ -21,11 +21,11 @@ def pdf_release_listing(request):
                                                 'base_url':settings.AWS_S3_CUSTOM_DOMAIN})
 def csv_release_listing(request):
     now = datetime.datetime.now()
-    data_releases = Release.objects.filter(file_type="2").order_by('-date_released')
+    data_releases = CrimeReport.objects.filter(file_type="1").order_by('-date_released')
     paginator = Paginator(data_releases, 50)
     page = request.GET.get('page')
     releases = paginator.get_page(page)
-    return render(request, 'crime/pdf_releases.html', {'releases': releases,
+    return render(request, 'crime/csv_releases.html', {'releases': releases,
                                                 'base_url':settings.AWS_S3_CUSTOM_DOMAIN})
 
 def redirect_view(request):

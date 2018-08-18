@@ -259,6 +259,47 @@ class Release(models.Model):
             print('{0} is already on s3'.format(file_name))
         return
 
+
+
+class CrimeReport(models.Model):
+    '''
+    a model for the individual agency data updates in CSV,
+    converted from the original PDFs
+    '''
+
+    FORMAT_CHOICES = (
+        ("1", "csv"),
+        )
+
+    PERIOD_CHOICES = (
+        ("1", "monthly"),
+        ("2", "quarterly"),
+        ("3", "annual"),
+        )
+
+    file_name = models.CharField(max_length=100)
+    file_type = models.CharField(choices = FORMAT_CHOICES, max_length=10, blank=True, null=True)
+    hj_url = URLOrRelativeURLField(unique=True, verbose_name="URL", blank=True, null=True)
+    date_released = models.DateField(blank=True, null=True, verbose_name = "Date of data release")
+    date_collected = models.DateField(blank=True, null=True, verbose_name="Date downloaded")
+    date_converted = models.DateField(blank=True, null=True, verbose_name="Date converted from PDF to CSV")
+    year_of_data = models.SmallIntegerField(blank=True, null=True, help_text="year the data covers")
+    month_of_data = models.SmallIntegerField(blank=True, null=True, help_text="If monthly, what month")
+    quarter = models.SmallIntegerField(blank=True, null=True, help_text="Quarter for quarterly data only")
+    frequency_type = models.CharField(choices = PERIOD_CHOICES, max_length=10, blank=False)
+    data_source = models.ForeignKey(Agency, null=True, blank=True, related_name='report_source_agency', help_text="The Agency that published the original data", on_delete=models.SET_NULL)
+    agency = models.ForeignKey(Agency, null=True, blank=True, related_name='reporting_agency', help_text="Agency reporting crimes", on_delete=models.SET_NULL)
+    release = models.ForeignKey(Release, null=True, blank=True, related_name='release', help_text="The original PDF the data came from.", on_delete=models.SET_NULL)
+
+    class Meta:
+        verbose_name_plural="CrimeReport"
+
+    def __unicode__(self):
+        return u"{0}".format(self.file_name)
+
+    def __str__(self):
+        return u"{0}".format(self.file_name)
+
 class TaskHistory(models.Model):
     name = models.CharField(max_length=100, verbose_name="Task name", help_text="Select a task to record.")
     history = JSONField(default={}, verbose_name="History", help_text="JSON containing the tasks history.")
