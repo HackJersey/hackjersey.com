@@ -18,10 +18,18 @@ v1_api.register(CityResource())
 v1_api.register(CountyResource())
 
 urlpatterns = [
-    path('', views.index),
+    #path('', views.index),
+    path('releases/pdf/', views.pdf_release_listing),
+    path('releases/csv/', views.csv_release_listing),
     path('api/', include(v1_api.urls)),
     #path('tinymce/', include('tinymce.urls')),
     #re_path(r'favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL+'favicon.ico', permanent=True)),
     #path('selectable/', include('selectable.urls')),
     #path('<path:url>', views.flatpage),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

@@ -3,7 +3,9 @@ from project.common import *
 DEBUG = os.environ.get('DJANGO_DEBUG')
 TEMPLATES_DEBUG = DEBUG
 
-INTERNAL_IPS = ('0.0.0.0','127.0.0.1')
+INTERNAL_IPS = ('0.0.0.0','127.0.0.1',
+	'crime.localhj.app', 'boundary.localhj.app',
+	'www.localhj.app')
 
 MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
 INSTALLED_APPS += ('debug_toolbar', )

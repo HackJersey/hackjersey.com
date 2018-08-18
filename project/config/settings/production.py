@@ -1,6 +1,5 @@
 from project.common import *
 
-#DEBUG = os.environ.get('DJANGO_DEBUG', False)
 #TODO set this all up
 
 '''

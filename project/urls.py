@@ -22,17 +22,14 @@ from django.urls import path, re_path
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import RedirectView
 from tastypie.api import Api
-from project.apps.crime import views
-from project.apps.crime.api.resources import (ReleaseResource, AgencyResource,
-                                            CityResource, CountyResource)
 from project.admin import admin_site
-from project.apps.crime import urls
-
+from project import views
 
 #from . import views
 admin.autodiscover()
 
 urlpatterns = [
+    path('', views.index, name='site_index'),
     path('pages/', include('django.contrib.flatpages.urls')),
     path('admin/password_reset/', auth_views.password_reset, name='admin_password_reset'),
     path('admin/password_reset/done/', auth_views.password_reset_done, name='password_reset_done'),
@@ -42,7 +39,8 @@ urlpatterns = [
     path('admin/', admin_site.urls),
     #re_path(r'favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL+'favicon.ico', permanent=True)),
     path('robots.txt', RedirectView.as_view(url=settings.STATIC_URL+'robots.txt', permanent=True)),
-    path('crime/', include('project.apps.crime.urls'))
+    path('crime/', include('project.apps.crime.urls')),
+    path('boundary/', include('project.apps.boundary.urls'))
     #path('selectable/', include('selectable.urls')),
     #path('<path:url>', views.flatpage),
 ]

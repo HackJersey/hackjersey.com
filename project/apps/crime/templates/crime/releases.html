@@ -1,13 +1,31 @@
-<html>
-<head></head>
-<body>
-
-hi
-
+{% extends 'base_page.html' %}
+{% block title %}{% endblock %}
+{% block inner-content %}
+{% load humanize %}
+{% block intro %}{% endblock %}
 <ul>
+{% if releases %}
 {% for release in releases %}
-    <li><a href="https://{{ base_url}}/{{ release.hj_url }}">{{ release.file_name }} urf</a></li>
+    <li><a href="https://{{ base_url}}/{{ release.hj_url }}">{{ release.get_frequency_type_display | title }} update{% if release.frequency_type == "2" %} for {{ release.quarter | ordinal }} quarter, {{ release.year_of_data }}{% elif release.frequency_type == "3" %} for {{ release.year_of_data }}{% else %}{% endif %}, released on {{ release.date_released }}</a></li>
 {% endfor %}
 </ul>
-</body>
-</html>
+<div class="pagination">
+	<span class="step-links">
+		{% if releases.has_previous %}
+		<a href="?page=1">&laquo; first</a>
+		<a href="?page={{ releases.previous_page_number }}">previous</a>
+		{% endif %}
+	<span class="current">
+		Page {{ releases.number }} of {{releases.paginator.num_pages }}.
+	</span>
+
+	{% if releases.has_next %}
+	<a href="?page={{ releases.next_page_number }}">next</a>
+	<a href="?page={{ releases.paginator.num_pages }}">last &raquo;</a>
+	{% endif %}
+</span>
+</div>
+{% else %}
+{% endif %}
+
+{% endblock %}

@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.humanize',
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.flatpages',
@@ -74,7 +75,7 @@ INSTALLED_APPS = [
     'timezone_field',
 #    'selectable',
 #    'tinymce',
-#    'celery',
+    'celery',
     'sortedm2m',
     'tastypie',
 #    'countable_field',
@@ -90,6 +91,7 @@ API_LIMIT_PER_PAGE = 50
 
 MIDDLEWARE = [
     #'django.middleware.common.BrokenLinkEmailsMiddleware',
+    'django_hosts.middleware.HostsRequestMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -99,6 +101,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware'
 ]
 
 MIDDLEWARE_CLASSES = (
@@ -106,6 +109,9 @@ MIDDLEWARE_CLASSES = (
 )
 
 ROOT_URLCONF = 'project.urls'
+ROOT_HOSTCONF = 'project.hosts'
+
+DEFAULT_HOST = 'home'
 
 TEMPLATES = [
     {
@@ -117,6 +123,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'project.context_processors.root_url',
             ],
                         'loaders': [('django.template.loaders.cached.Loader', [
                         'django.template.loaders.filesystem.Loader',

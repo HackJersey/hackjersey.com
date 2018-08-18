@@ -138,6 +138,7 @@ class Release(models.Model):
     year_of_data = models.SmallIntegerField(blank=True, null=True, help_text="year the data covers")
     frequency_type = models.CharField(choices = PERIOD_CHOICES, max_length=10, blank=False)
     data_source = models.ForeignKey(Agency, null=True, blank=True, related_name='source_agency', help_text="Source Agency", on_delete=models.SET_NULL)
+    quarter = models.SmallIntegerField(blank=True, null=True)
 
     class Meta:
         verbose_name_plural="Releases"
@@ -203,9 +204,18 @@ class Release(models.Model):
         date_released = date(int(file_name[:4]),
                             int(file_name[4:6]), 
                             int(file_name[6:8]))
+        quarter = None
         if "qtr" in file_name:
             frequency_type = "2"
             year_of_data = int(file_name.split('.')[0][-4:])
+            if "_1st" in file_name:
+                quarter = 1
+            elif "_2nd" in file_name:
+                quarter = 2
+            elif "_3rd" in file_name:
+                quarter = 3
+            elif "_4th"in file_name:
+                quarter = 4
         elif "ucr" in file_name:
             frequency_type = "3"
             year_of_data = int(file_name.split('_')[-1][:4])
@@ -234,8 +244,9 @@ class Release(models.Model):
         self.date_released = date_released
         self.year_of_data = year_of_data
         self.frequency_type = frequency_type
+        self.quarter = quarter
         return (file_name, file_type, hj_url, length,
-            date_released, year_of_data, frequency_type)
+            date_released, year_of_data, frequency_type, quarter)
 
     def upload_to_s3(self, raw_data, file_name, bucket_folder = 'pdfs/'):
         if not default_storage.exists(file_name):

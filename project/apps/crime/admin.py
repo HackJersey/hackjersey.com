@@ -4,6 +4,8 @@ from django.contrib.admin.forms import AdminAuthenticationForm
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 from django.contrib.flatpages.admin import FlatPageAdmin
+from django.contrib.sites.admin import SiteAdmin
+from django.contrib.sites.models import Site
 from django.contrib.flatpages.models import FlatPage
 from django.utils.translation import gettext_lazy as _
 
@@ -82,6 +84,14 @@ class FlatPageAdmin(FlatPageAdmin):
 # Re-register FlatPageAdmin
 #admin_site.unregister(FlatPage)
 admin_site.register(FlatPage, FlatPageAdmin)
+
+# Define a new FlatPageAdmin
+class SiteAdmin(SiteAdmin):
+    list_display=('name', 'domain')
+
+# Re-register FlatPageAdmin
+#admin_site.unregister(FlatPage)
+admin_site.register(Site, SiteAdmin)
 
 
 class StateAdmin(admin.ModelAdmin):

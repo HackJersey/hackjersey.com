@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Hack Jersey: journalists and coders working together{% endblock %}
+{% block content %}
+    <main role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <div class="container">
+          <h1 class="display-3">Hello, Jersey!</h1>
+          <p>Hack Jersey is a group of journalists and developers working on innovative open source, news public data projects. We're working on a series of tools and data sets to help improve journalism and information in the Garden State.</p>
+          <p><a class="btn btn-primary btn-lg" href="/about/" role="button">Learn more &raquo;</a></p>
+        </div>
+      </div>
+
+      <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-md-4">
+            <h2>Crime</h2>
+            <p>We've been collecting monthly crime data from the New Jersey State Police for years. Now we're converting crusty PDFs into data that you can use. </p>
+            <p><a class="btn btn-secondary" href="/crime/" role="button">Read about our crime data &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Boundaries</h2>
+            <p>For several years we operated a boundary service that would allow developers to access important information about geographic spaces — think school zones, Congressional districts and municipalities — in New Jersey. Now we're rebuiding the boundary service to make it more robust and useful for years to come. </p>
+            <p><a class="btn btn-secondary" href="/boundary/" role="button">Read our plans &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Get Involved</h2>
+            <p>We welcome contributions to our data and code projects from the open source community, in New Jersey and around the world. Want to help us out? </p>
+            <p><a class="btn btn-secondary" href="/help-us/" role="button">Learn how to contribute &raquo;</a></p>
+          </div>
+        </div>
+
+        <hr>
+
+      </div> <!-- /container -->
+
+    </main>
+
+{% endblock %}
