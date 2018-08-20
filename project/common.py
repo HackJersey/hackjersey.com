@@ -76,6 +76,8 @@ INSTALLED_APPS = [
 #    'selectable',
 #    'tinymce',
     'celery',
+    'django_celery_results',
+    'django_celery_beat',
     'sortedm2m',
     'tastypie',
 #    'countable_field',
@@ -177,6 +179,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+#Celery settings
+CELERY_TIMEZONE = 'America/New_York'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_BROKER_POOL_LIMIT = 10
+
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -216,20 +230,6 @@ SLACK_ICON_EMOJI=":bell:"
 '''
 
 #LOCKING = {'time_until_expiration': 120, 'time_until_warning': 60}
-
-#TODO set up Celery task queue
-'''
-#Celery settings
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-
-CELERY_RESULT_SERIALIZER = 'json'
-
-BROKER_POOL_LIMIT = 1
-
-CELERY_RESULT_BACKEND= 'djcelery.backends.database:DatabaseBackend'
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
-'''
 
 #todo setup TinyMCE
 '''
@@ -299,3 +299,14 @@ IGNORABLE_404_URLS = [
     re.compile(r'^/rules/'),
     re.compile(r'wordpress'),
 ]
+
+#settings for SSL and HSTS 
+#https://docs.djangoproject.com/en/1.8/ref/middleware/#django.middleware.security.SecurityMiddleware
+#SECURE_SSL_REDIRECT = False #this is handled by the secure proxy ssl header above. 
+#Setting it to true will result in infinite redirects/worker timeouts
+SECURE_FRAME_DENY = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True

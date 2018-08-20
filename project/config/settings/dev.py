@@ -18,8 +18,6 @@ DEBUG_TOOLBAR_CONFIG = {
     'SHOW_TEMPLATE_CONTEXT': True,
 }
 
-CELERY_TIMEZONE = 'America/New_York'
-
 #RabbitMQ/Celery settings
 BROKER_URL = 'amqp://devuser:devpassword@localhost:5672/myvhost'
 
@@ -32,9 +30,4 @@ SECRET_KEY = os.environ.get('CRIME_SECRET_KEY')
 #Setting it to true will result in infinite redirects/worker timeouts
 
 SECURE_HSTS_SECONDS = 360
-SECURE_FRAME_DENY = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
 SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_HTTPONLY = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
