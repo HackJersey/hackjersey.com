@@ -3,6 +3,7 @@ from datetime import datetime, date
 import io
 import re
 from urllib.parse import urlparse
+import hashlib
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -364,6 +365,50 @@ class Documentation(models.Model):
         title = self.title
         self.slug = slugify(title)
         super(Documentation, self).save()
+
+class ScrapeSite(models.Model):
+    url = URLOrRelativeURLField(unique=True, verbose_name="ScrapeURL", blank=True, null=True)
+    name = models.CharField(max_length=200)
+    selector = models.CharField(max_length=250, blank=True, null = True, help_text="An XPath selector")
+
+    def __unicode__(self):
+        return u'{0}'.format(self.name)
+
+    def __str__(self):
+        return u'{0}'.format(self.name)
+
+class Scraped(models.Model):
+    source_url = models.ForeignKey(ScrapeSite, blank=True, null=True, on_delete=models.SET_NULL)
+    html_hash = models.TextField(blank=True, null=True)
+    s3_url = URLOrRelativeURLField(unique=True, verbose_name="ScrapeURL", blank=True, null=True)
+    scraped_date = models.DateTimeField(auto_now_add=True)
+    status_code = models.CharField(max_length = 10, blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "scraped"
+
+    def __unicode__(self):
+        return u'{1}: {0}'.format(self.source_url, self.scraped_date)
+
+    def __str__(self):
+        return u'{1}: {0}'.format(self.source_url, self.scraped_date)
+
+    def hash(self, html_string):
+        y = hashlib.sha256()
+        y.update(html_string.encode('utf-8'))
+        self.html_hash = y.hexdigest()
+        return self.html_hash
+    
+    def upload_to_s3(self, raw_data, file_name, bucket_folder = 'html/'):
+        if not default_storage.exists(file_name):
+            upload_file = default_storage.open("{0}{1}".format(bucket_folder, file_name), 'w')
+            upload_file.write(raw_data)
+            upload_file.close()
+            self.s3_url = default_storage.url("{0}{1}".format(bucket_folder, file_name))
+        else:
+            print('{0} is already on s3'.format(file_name))
+        return
+
 
 
 #FUTURE TODO

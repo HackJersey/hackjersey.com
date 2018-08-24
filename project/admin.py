@@ -173,3 +173,21 @@ class AgencyAdmin(ForeignKeyAutocompleteAdmin):
     search_fields = ['name','cities__name', 'counties__name']
 
 admin_site.register(Agency, AgencyAdmin)
+
+
+class ScrapeSiteAdmin(admin.ModelAdmin):
+    form = forms.ModelForm
+    list_display=('url', 'name', 'selector')
+    ordering=('name',)
+    search_fields = ['name', 'url']
+
+admin_site.register(ScrapeSite, ScrapeSiteAdmin)
+
+class ScrapedAdmin(admin.ModelAdmin):
+    form = forms.ModelForm
+    list_display=('source_url', 'scraped_date', 's3_url', 'status_code')
+    ordering=('-scraped_date', 'source_url')
+    #TODO show scraped_date as local tz
+    search_fields = ['scraped_date', 'source_url']
+
+admin_site.register(Scraped, ScrapedAdmin)
