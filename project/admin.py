@@ -60,7 +60,6 @@ admin_site = MyAdminSite(name='crime')
 class UserModelAdmin(UserAdmin):
     inlines = UserAdmin.inlines + [ApiKeyInline]
 
-#admin.site.unregister(User)
 admin_site.register(User,UserModelAdmin)
 admin_site.register(Group, GroupAdmin)
 
@@ -187,7 +186,7 @@ class ScrapedAdmin(admin.ModelAdmin):
     form = forms.ModelForm
     list_display=('source_url', 'scraped_date', 's3_url', 'status_code')
     ordering=('-scraped_date', 'source_url')
-    #TODO show scraped_date as local tz
+    readonly_fields = ['scraped_date',]
     search_fields = ['scraped_date', 'source_url']
 
 admin_site.register(Scraped, ScrapedAdmin)

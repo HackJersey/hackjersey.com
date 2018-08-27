@@ -177,20 +177,29 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 #Celery settings
+#https://www.cloudamqp.com/docs/celery.html
 CELERY_TIMEZONE = 'America/New_York'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 
 CELERY_RESULT_SERIALIZER = 'json'
 
-CELERY_BROKER_POOL_LIMIT = 10
+CELERY_BROKER_POOL_LIMIT = 1
 
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
+CELERY_BROKER_HEARTBEAT = None
+CELERY_BROKER_TIMEOUT  = 30 # May require a long timeout due to Linux DNS timeouts etc
+CELERY_EVENT_QUEUE_EXPIRES = 60 # Will delete all celeryev. queues without consumers after 1 minute.
+CELERY_WORKER_PREFETCH_MULTIPLIER = 1 # Disable prefetching, it causes problems and doesn't help performance
+CELERY_WORKER_CONCURRENCY = 10 # If your tasks are CPU bound, then limit to the number of cores, otherwise increase substainally
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
+TIME_ZONE = 'America/New_York'
 LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 USE_L10N = True
