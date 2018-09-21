@@ -254,6 +254,7 @@ class Release(models.Model):
             upload_file = default_storage.open("{0}{1}".format(bucket_folder, file_name), 'w')
             upload_file.write(raw_data)
             upload_file.close()
+            print('{0}{1} uploaded to s3'.format(bucket_folder,file_name))
             self.hj_url = default_storage.url("{0}{1}".format(bucket_folder, file_name))
             self.date_collected = date.today()
         else:

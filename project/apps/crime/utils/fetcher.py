@@ -126,6 +126,7 @@ def main(scrape_date=None, url=None):
             njsp = Agency.objects.get(ori7="NJNSP00")
             p.data_source = njsp
             p.save()
+            print('Saved in our database')
     else:
         print('No new files at this time. Try again later.')
 
