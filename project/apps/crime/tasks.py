@@ -16,6 +16,7 @@ import requests
 
 logger = get_task_logger(__name__)
 
+'''
 @periodic_task(run_every=(crontab(hour="8", minute="00", day_of_week="*")), ignore_result=True)
 def long_wait_task():
     logger.info("Start task")
@@ -42,7 +43,7 @@ def scraper_check():
 
 
 # A periodic task that will run every minute (the symbol "*" means every)
-'''
+
 @periodic_task(run_every=(crontab(hour="*", minute="*", day_of_week="*")), ignore_result=True)
 def testing_example():
     logger.info("Start task")
