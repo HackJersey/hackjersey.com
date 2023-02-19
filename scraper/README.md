@@ -52,8 +52,8 @@ The CSVs have the following columns.
 * "month_last_yr" - the count for each crime from the time period covered, such as March, 2015, for instance.
 * "month_this_yr" - the count for the same time period the previous year.
 * "pct_chg" - the year-to-year percent change
-* "ytd_last" - the cumulative count from January 1 of the year.
-* "ytd_this_yr" - the same year-to-date count over the same time the previous year.
+* "ytd_this_yr" - the cumulative count from January 1 of last year.
+* "ytd_last" - the same year-to-date count over the same time the previous year.
 * "ytd_pct_chg" - the annual, year-to-date percent change.
 * "cleared" - the number of crimes in this category cleared.
 * "pct_cleared" - the percent of crimes cleared.

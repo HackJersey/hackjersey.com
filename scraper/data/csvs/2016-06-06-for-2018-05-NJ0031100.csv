@@ -1,0 +1,11 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Rape , 0 , 0 , 1 , 0 , 0 , 0
+"Strong Arm (Hands, Fists, etc.) ", 0 , 0 , 0 , 1 , 0 , 0
+Knife or Cutting Instrument , 0 , 0 , 1 , 0 , 0 , 0
+"Aggravated (Hands, Fists, Feet, etc.) ", 0 , 0 , 0 , 1 , 1 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 2 , 0 , 5 , 9 , 2 , 0
+Forcible Entry , 0 , 0 , 2 , 5 , 1 , 0
+Unlawful Entry , 1 , 0 , 2 , 2 , 1 , 0
+Larceny - Theft , 4 , 0 , 12 , 19 , 3 , 0
+Autos , 0 , 0 , 1 , 0 , 0 , 0
+Other Vehicle , 0 , 0 , 1 , 0 , 0 , 0

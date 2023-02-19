@@ -1,0 +1,21 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Murder , 21 , 1 , 119 , 60 , 41 , 2
+Manslaughter , 0 , 0 , 1 , 1 , 2 , 0
+Rape , 124 , 13 , 500 , 370 , 148 , 24
+Attempted Rape , 6 , 1 , 19 , 30 , 8 , 2
+Firearm , 243 , 23 , 1217 , 616 , 166 , 35
+Knife or Cutting Instrument , 69 , 5 , 325 , 187 , 65 , 11
+Other Dangerous Weapon , 57 , 3 , 221 , 162 , 47 , 6
+"Strong Arm (Hands, Fists, etc.) ", 458 , 34 , 1782 , 1128 , 381 , 78
+Gun , 202 , 10 , 751 , 539 , 214 , 25
+Knife or Cutting Instrument , 257 , 15 , 962 , 577 , 363 , 22
+Other Dangerous Weapon , 339 , 34 , 1275 , 999 , 590 , 49
+"Aggravated (Hands, Fists, Feet, etc.) ", 339 , 27 , 1270 , 839 , 547 , 73
+"Simple (Hands, Fists, Feet, etc.) ", 5341 , 711 , 22174 , 15811 , 7375 , 634
+Forcible Entry , 1220 , 112 , 5987 , 3699 , 579 , 44
+Unlawful Entry , 877 , 108 , 3301 , 2314 , 337 , 30
+Attempted Forcible Entry , 256 , 32 , 1201 , 788 , 92 , 6
+Larceny - Theft , 9284 , 1241 , 39445 , 25860 , 6237 , 470
+Autos , 883 , 92 , 3969 , 2223 , 131 , 8
+Trucks and Buses , 55 , 5 , 297 , 180 , 7 , 1
+Other Vehicle , 73 , 10 , 219 , 192 , 9 , 2

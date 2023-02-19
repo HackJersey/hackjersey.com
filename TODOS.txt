@@ -1,0 +1,41 @@
+write a script. read in two csvs. for everything missing from 2, add it. Then join that with LEAR and LEAIC
+
+dump and then
+reload initial_fixture.json on prod
+
+rewrite fetcher to not download the file locally. it chokes on heroku for some reason (there's no downloads dir in the repo?)
+
+update README docs for endusers, not just admins
+
+add CONTRIBUTING?
+
+flesh out our api docs
+
+write a management command or fabfile to sync production data and repopulate local (copy dumpdata settings from knell)
+
+LAUNCH - ie - send to Steve & Carla & Eric & Grant for feedback
+
+next step in data pipeline: update parser to handle quarterly files and different formats.
+
+convert all to csvs so we offer PDFs and csvs. then move to process each csv into agency data
+
+
+FUTURE
+add these to github
+- include in compare_urls email a url that if I hit it, it will run the task to upload the dB and send s success confirmation email. or after a few weeks of testing, just have it auto run fetcher
+
+Admin page with button to run fetcher with a calendar widget to pick date. 
+Or optionally change file name or url
+
+port changes to the command line version...?
+how to get https to work with custom domains
+https://devcenter.heroku.com/articles/ssl-endpoint#acquire-ssl-certificate
+
+Tweet task when new releases added.
+
+Add tweet table
+add tweet tasks
+
+add sitemap
+
+add google data markup to api to make it more searchable (just final data, not pdfs)

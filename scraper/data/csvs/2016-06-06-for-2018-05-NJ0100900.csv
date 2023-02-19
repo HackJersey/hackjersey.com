@@ -1,0 +1,9 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Rape , 0 , 0 , 1 , 0 , 1 , 0
+Attempted Rape , 0 , 0 , 0 , 0 , 1 , 1
+Gun , 0 , 0 , 0 , 0 , 1 , 0
+Other Dangerous Weapon , 0 , 0 , 0 , 1 , 0 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 1 , 0 , 10 , 11 , 7 , 0
+Forcible Entry , 0 , 0 , 4 , 0 , 0 , 0
+Larceny - Theft , 4 , 0 , 24 , 17 , 1 , 0
+Autos , 0 , 0 , 1 , 0 , 0 , 0

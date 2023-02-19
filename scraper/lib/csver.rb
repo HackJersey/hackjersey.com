@@ -62,7 +62,11 @@ end
 
 def id_namer(csv)
     pattern = /^(N.+)\s+Total/
-    id = pattern.match(csv)[1].strip
+    if pattern.match(csv)
+        id = pattern.match(csv)[1].strip
+    else
+        id = nil
+    end
     return id            
 end
 

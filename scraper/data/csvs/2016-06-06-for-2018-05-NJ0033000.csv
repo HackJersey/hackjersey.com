@@ -1,0 +1,16 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Murder , 0 , 0 , 1 , 0 , 0 , 0
+Rape , 0 , 0 , 6 , 7 , 1 , 0
+Attempted Rape , 1 , 0 , 1 , 6 , 0 , 0
+Firearm , 0 , 0 , 6 , 3 , 0 , 0
+"Strong Arm (Hands, Fists, etc.) ", 3 , 0 , 5 , 6 , 1 , 0
+Gun , 2 , 0 , 5 , 2 , 0 , 0
+Knife or Cutting Instrument , 1 , 0 , 6 , 3 , 2 , 0
+Other Dangerous Weapon , 0 , 0 , 5 , 4 , 2 , 0
+"Aggravated (Hands, Fists, Feet, etc.) ", 1 , 0 , 5 , 4 , 2 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 25 , 0 , 116 , 60 , 34 , 2
+Forcible Entry , 6 , 0 , 30 , 40 , 1 , 0
+Unlawful Entry , 9 , 0 , 26 , 51 , 3 , 0
+Attempted Forcible Entry , 1 , 0 , 8 , 3 , 0 , 0
+Larceny - Theft , 24 , 0 , 142 , 124 , 18 , 1
+Autos , 2 , 0 , 11 , 8 , 3 , 0

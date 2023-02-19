@@ -1,0 +1,6 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+"Simple (Hands, Fists, Feet, etc.) ", 1 , 0 , 3 , 1 , 1 , 0
+Forcible Entry , 0 , 0 , 3 , 0 , 0 , 0
+Larceny - Theft , 3 , 0 , 4 , 24 , 7 , 0
+Autos , 0 , 0 , 1 , 1 , 0 , 0
+Trucks and Buses , 0 , 0 , 0 , 1 , 0 , 0

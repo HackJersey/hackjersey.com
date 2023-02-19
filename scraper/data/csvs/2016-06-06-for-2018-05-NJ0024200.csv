@@ -1,0 +1,8 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Knife or Cutting Instrument , 0 , 0 , 0 , 1 , 1 , 0
+Other Dangerous Weapon , 0 , 0 , 1 , 1 , 1 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 6 , 0 , 17 , 7 , 5 , 0
+Forcible Entry , 0 , 0 , 1 , 0 , 0 , 0
+Unlawful Entry , 0 , 0 , 1 , 1 , 0 , 0
+Larceny - Theft , 14 , 0 , 33 , 6 , 1 , 1
+Other Vehicle , 0 , 0 , 1 , 0 , 0 , 0

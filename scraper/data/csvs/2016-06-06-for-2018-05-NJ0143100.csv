@@ -1,0 +1,6 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Other Dangerous Weapon , 1 , 0 , 1 , 1 , 1 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 6 , 0 , 21 , 20 , 18 , 0
+Forcible Entry , 3 , 0 , 5 , 1 , 0 , 0
+Unlawful Entry , 2 , 0 , 2 , 3 , 1 , 0
+Larceny - Theft , 12 , 0 , 31 , 36 , 7 , 0

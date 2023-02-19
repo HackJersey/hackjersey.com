@@ -1,0 +1,10 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Firearm , 0 , 0 , 0 , 1 , 0 , 0
+"Strong Arm (Hands, Fists, etc.) ", 0 , 0 , 0 , 1 , 1 , 0
+"Aggravated (Hands, Fists, Feet, etc.) ", 0 , 1 , 1 , 2 , 1 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 1 , 0 , 3 , 9 , 8 , 0
+Unlawful Entry , 0 , 0 , 0 , 1 , 0 , 0
+Larceny - Theft , 3 , 7 , 32 , 33 , 6 , 0
+Autos , 0 , 1 , 0 , 2 , 0 , 0
+Trucks and Buses , 1 , 0 , 9 , 7 , 0 , 0
+Other Vehicle , 0 , 1 , 0 , 1 , 0 , 0

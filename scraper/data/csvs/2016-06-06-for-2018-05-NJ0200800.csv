@@ -1,0 +1,10 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Rape , 0 , 0 , 1 , 0 , 0 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 0 , 0 , 2 , 11 , 7 , 0
+Forcible Entry , 0 , 0 , 2 , 1 , 0 , 0
+Unlawful Entry , 0 , 0 , 1 , 2 , 1 , 0
+Attempted Forcible Entry , 1 , 0 , 2 , 1 , 0 , 0
+Larceny - Theft , 7 , 0 , 57 , 41 , 7 , 0
+Autos , 1 , 0 , 2 , 3 , 0 , 0
+Trucks and Buses , 0 , 0 , 2 , 2 , 0 , 0
+Other Vehicle , 1 , 0 , 1 , 0 , 0 , 0

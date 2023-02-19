@@ -1,0 +1,11 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Rape , 0 , 0 , 1 , 0 , 0 , 0
+Firearm , 0 , 0 , 1 , 0 , 0 , 0
+"Aggravated (Hands, Fists, Feet, etc.) ", 0 , 0 , 1 , 1 , 1 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 2 , 0 , 18 , 14 , 13 , 0
+Forcible Entry , 3 , 0 , 9 , 5 , 1 , 0
+Unlawful Entry , 1 , 0 , 4 , 4 , 0 , 0
+Attempted Forcible Entry , 2 , 0 , 2 , 2 , 0 , 0
+Larceny - Theft , 5 , 0 , 17 , 19 , 3 , 1
+Autos , 0 , 0 , 0 , 2 , 0 , 0
+Trucks and Buses , 0 , 0 , 0 , 3 , 0 , 0

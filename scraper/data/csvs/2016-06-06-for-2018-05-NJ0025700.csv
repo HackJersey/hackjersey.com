@@ -1,0 +1,11 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Knife or Cutting Instrument , 1 , 0 , 1 , 0 , 0 , 0
+"Aggravated (Hands, Fists, Feet, etc.) ", 0 , 0 , 2 , 0 , 0 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 6 , 0 , 27 , 13 , 7 , 0
+Forcible Entry , 0 , 0 , 3 , 2 , 0 , 0
+Unlawful Entry , 0 , 0 , 2 , 1 , 1 , 0
+Attempted Forcible Entry , 1 , 0 , 1 , 1 , 0 , 0
+Larceny - Theft , 21 , 0 , 89 , 61 , 25 , 0
+Autos , 0 , 0 , 2 , 1 , 0 , 0
+Trucks and Buses , 0 , 0 , 0 , 1 , 0 , 0
+Other Vehicle , 0 , 0 , 0 , 1 , 0 , 0

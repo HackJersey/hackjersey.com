@@ -1,0 +1,6 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+Knife or Cutting Instrument , 1 , 0 , 1 , 0 , 0 , 0
+Other Dangerous Weapon , 1 , 0 , 1 , 0 , 0 , 0
+"Aggravated (Hands, Fists, Feet, etc.) ", 1 , 0 , 1 , 0 , 0 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 8 , 0 , 14 , 5 , 4 , 0
+Larceny - Theft , 2 , 0 , 3 , 2 , 0 , 0

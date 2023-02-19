@@ -1,0 +1,8 @@
+crime,month_last_yr,month_this_yr,ytd_last,ytd_this_yr,cleared,juvie_cleared
+"Strong Arm (Hands, Fists, etc.) ", 0 , 0 , 1 , 0 , 0 , 0
+"Aggravated (Hands, Fists, Feet, etc.) ", 1 , 0 , 1 , 0 , 0 , 0
+"Simple (Hands, Fists, Feet, etc.) ", 5 , 0 , 9 , 3 , 1 , 0
+Forcible Entry , 1 , 0 , 3 , 1 , 2 , 0
+Unlawful Entry , 1 , 0 , 4 , 2 , 1 , 0
+Attempted Forcible Entry , 1 , 0 , 2 , 1 , 1 , 0
+Larceny - Theft , 13 , 0 , 42 , 14 , 3 , 0
